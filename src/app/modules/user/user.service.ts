@@ -17,8 +17,11 @@ const getAllUsers = async (): Promise<IUser[]> => {
 }
 
 const getSingleUser = async (userId: number): Promise<IUser | null> => {
-    const result = await User.findOne({ userId })
-    return result
+    if (await User.isUserExists(userId)) {
+        const result = await User.findOne({ userId }, { password: 0, _id: 0, __v: 0 })
+        return result
+    }
+    throw new Error("User not exists")
 }
 
 const updateUser = async (userId: number, userData: IUser): Promise<IUser | null> => {
