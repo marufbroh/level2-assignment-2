@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IUser, IUserModel } from "./user.interface";
+import config from "../../config";
+import bcrypt from "bcrypt";
 
 
 const userSchema = new Schema<IUser, IUserModel>({
@@ -59,6 +61,13 @@ const userSchema = new Schema<IUser, IUserModel>({
         },
     },
 });
+
+
+userSchema.pre("save", async function (next) {
+    this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds))
+    next();
+})
+
 
 userSchema.statics.isUserExists = async function (userId: string) {
     const existingUser = await User.findOne({ userId });
