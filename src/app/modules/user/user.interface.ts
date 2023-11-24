@@ -20,7 +20,7 @@ interface IUser {
 }
 
 interface IUserModel extends Model<IUser> {
-    isUserExists(userId: string): Promise<IUser | null>
+    isUserExists(userId: number): Promise<IUser | null>
 }
 
 export { IUser, IUserModel }
