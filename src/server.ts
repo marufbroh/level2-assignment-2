@@ -14,4 +14,4 @@ async function server() {
     }
 }
 
-server();
+server().catch(err => console.log(err));
