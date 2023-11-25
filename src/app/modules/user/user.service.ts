@@ -25,12 +25,15 @@ const getSingleUser = async (userId: number): Promise<IUser | null> => {
 }
 
 const updateUser = async (userId: number, userData: IUser): Promise<IUser | null> => {
-    const result = await User.findOneAndUpdate({ userId }, userData, {
-        new: true,
-        runValidators: true,
-    })
-
-    return result || null;
+    if (await User.isUserExists(userId)) {
+        const result = await User.findOneAndUpdate({ userId }, userData, {
+            new: true,
+            runValidators: true,
+            select: '-password',
+        })
+        return result;
+    }
+    throw new Error("User not exists")
 }
 
 const deleteUser = async (userId: number): Promise<IUser | null> => {

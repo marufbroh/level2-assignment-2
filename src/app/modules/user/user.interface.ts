@@ -20,6 +20,7 @@ interface IUser {
 }
 
 interface IUserModel extends Model<IUser> {
+    // eslint-disable-next-line no-unused-vars
     isUserExists(userId: number): Promise<IUser | null>
 }
 
