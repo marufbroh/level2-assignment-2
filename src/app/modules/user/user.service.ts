@@ -79,7 +79,7 @@ const getTotalPriceOfOrdersFromUser = async (userId: number): Promise<{ totalPri
     if (await User.isUserExists(userId)) {
         const user = await User.findOne({ userId });
         if (user?.orders) {
-            const totalPrice = user.orders.reduce((sum, order) => sum + order.price, 0)
+            const totalPrice = user.orders.reduce((sum, order) => sum + (order.price * order.quantity), 0)
             return { totalPrice: totalPrice };
         }
     }
