@@ -19,7 +19,7 @@ const getSingleUser = async (userId: number): Promise<IUser | null> => {
   if (await User.isUserExists(userId)) {
     const result = await User.findOne(
       { userId },
-      { password: 0, _id: 0, __v: 0 },
+      { password: 0, _id: 0, __v: 0, orders: 0 },
     )
     return result
   }

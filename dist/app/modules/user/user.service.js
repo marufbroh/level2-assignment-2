@@ -27,7 +27,7 @@ const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getSingleUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
-        const result = yield user_model_1.default.findOne({ userId }, { password: 0, _id: 0, __v: 0 });
+        const result = yield user_model_1.default.findOne({ userId }, { password: 0, _id: 0, __v: 0, orders: 0 });
         return result;
     }
     throw new Error('User not exists');
