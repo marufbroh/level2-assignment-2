@@ -74,6 +74,19 @@ const getOrdersFromUser = async (userId: number): Promise<{ orders: IOrders[] } 
     throw new Error("User not exists")
 }
 
+
+const getTotalPriceOfOrdersFromUser = async (userId: number): Promise<{ totalPrice: number } | null> => {
+    if (await User.isUserExists(userId)) {
+        const user = await User.findOne({ userId });
+        if (user?.orders) {
+            const totalPrice = user.orders.reduce((sum, order) => sum + order.price, 0)
+            return { totalPrice: totalPrice };
+        }
+    }
+    throw new Error("User not exists")
+}
+
+
 export const userServices = {
     createUser,
     getAllUsers,
@@ -82,4 +95,5 @@ export const userServices = {
     deleteUser,
     addProductToOrder,
     getOrdersFromUser,
+    getTotalPriceOfOrdersFromUser,
 }
