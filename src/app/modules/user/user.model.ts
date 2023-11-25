@@ -1,8 +1,24 @@
 import { Schema, model } from "mongoose";
-import { IUser, IUserModel } from "./user.interface";
+import { IOrders, IUser, IUserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from "bcrypt";
 
+const orderSchema = new Schema<IOrders>({
+    productName: {
+        type: String,
+        required: [true, 'Product name is required'],
+    },
+    price: {
+        type: Number,
+        required: [true, 'Price is required'],
+        min: [0, 'Price must be a non-negative number'],
+    },
+    quantity: {
+        type: Number,
+        required: [true, 'Quantity is required'],
+        min: [1, 'Quantity must be at least 1'],
+    },
+});
 
 const userSchema = new Schema<IUser, IUserModel>({
     userId: {
@@ -60,6 +76,7 @@ const userSchema = new Schema<IUser, IUserModel>({
             required: [true, 'Country is required'],
         },
     },
+    orders: [orderSchema],
 });
 
 

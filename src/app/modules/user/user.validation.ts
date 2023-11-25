@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+const orderValidationSchema = z.object({
+    productName: z.string().min(1, { message: 'Product name is required' }),
+    price: z.number().min(0, { message: 'Price must be a non-negative number' }),
+    quantity: z.number().min(1, { message: 'Quantity must be at least 1' }),
+});
+
 const userValidationSchema = z.object({
     userId: z.number().min(1, { message: "UserId is required" }),
     username: z.string().min(1, { message: 'Username is required' }),
@@ -19,6 +25,7 @@ const userValidationSchema = z.object({
         city: z.string().min(1, { message: 'City is required' }),
         country: z.string().min(1, { message: 'Country is required' }),
     }),
+    orders: z.array(orderValidationSchema).optional(),
 });
 
-export default userValidationSchema;
+export { userValidationSchema, orderValidationSchema };

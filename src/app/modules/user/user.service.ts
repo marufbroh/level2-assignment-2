@@ -44,10 +44,30 @@ const deleteUser = async (userId: number): Promise<IUser | null> => {
     throw new Error("User not exists")
 }
 
+
+const addProductToOrder = async (userId: number, orderData: { productName: string; price: number; quantity: number }): Promise<IUser | null> => {
+    if (await User.isUserExists(userId)) {
+        const user = await User.findOne({ userId });
+        if (user) {
+
+            if (!user.orders) {
+                user.orders = [];
+            }
+
+            user.orders.push(orderData);
+            const updatedUser = await user.save();
+
+            return updatedUser;
+        }
+    }
+    throw new Error("User not exists")
+}
+
 export const userServices = {
     createUser,
     getAllUsers,
     getSingleUser,
     updateUser,
     deleteUser,
+    addProductToOrder,
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { userServices } from "./user.service"
-import userValidationSchema from "./user.validation";
+import { orderValidationSchema, userValidationSchema } from "./user.validation";
 import { IUser } from "./user.interface";
 
 
@@ -136,10 +136,35 @@ const deleteUser = async (req: Request, res: Response) => {
     }
 }
 
+const addProductToOrder = async (req: Request, res: Response) => {
+    try {
+        const userId = Number(req.params.userId)
+        const orderData = req.body
+        const zodParsedData = orderValidationSchema.parse(orderData);
+        const result = await userServices.addProductToOrder(userId, zodParsedData)
+        res.status(200).json({
+            success: true,
+            message: 'Order created successfully!',
+            data: null,
+        })
+    } catch (error: any) {
+        console.log(error)
+        res.status(404).json({
+            success: false,
+            message: "User not found",
+            error: {
+                code: 404,
+                description: "User not found!"
+            }
+        })
+    }
+}
+
 export const userController = {
     createUser,
     getAllUsers,
     getSingleUser,
     updateUser,
     deleteUser,
+    addProductToOrder,
 }
