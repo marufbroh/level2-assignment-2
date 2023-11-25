@@ -1,4 +1,4 @@
-import { IUser } from "./user.interface"
+import { IOrders, IUser } from "./user.interface"
 import User from "./user.model"
 
 
@@ -63,6 +63,17 @@ const addProductToOrder = async (userId: number, orderData: { productName: strin
     throw new Error("User not exists")
 }
 
+
+const getOrdersFromUser = async (userId: number): Promise<{ orders: IOrders[] } | null> => {
+    if (await User.isUserExists(userId)) {
+        const user = await User.findOne({ userId });
+        if (user?.orders) {
+            return { orders: user.orders };
+        }
+    }
+    throw new Error("User not exists")
+}
+
 export const userServices = {
     createUser,
     getAllUsers,
@@ -70,4 +81,5 @@ export const userServices = {
     updateUser,
     deleteUser,
     addProductToOrder,
+    getOrdersFromUser,
 }
