@@ -15,7 +15,7 @@ app.use('/api/users', user_route_1.userRoutes);
 app.get('/', (req, res) => {
     res.status(200).json({
         success: true,
-        message: "Welcome to Level 2 Assignment 2"
+        message: 'Welcome to Level 2 Assignment 2',
     });
 });
 exports.default = app;

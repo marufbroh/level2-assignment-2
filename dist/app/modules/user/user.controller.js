@@ -82,11 +82,11 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });
@@ -105,18 +105,18 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = Number(req.params.userId);
-        const result = yield user_service_1.userServices.deleteUser(userId);
+        yield user_service_1.userServices.deleteUser(userId);
         res.status(200).json({
             success: true,
             message: 'User deleted successfully!',
@@ -127,11 +127,11 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });
@@ -140,7 +140,7 @@ const addProductToOrder = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const userId = Number(req.params.userId);
         const orderData = req.body;
         const zodParsedData = user_validation_1.orderValidationSchema.parse(orderData);
-        const result = yield user_service_1.userServices.addProductToOrder(userId, zodParsedData);
+        yield user_service_1.userServices.addProductToOrder(userId, zodParsedData);
         res.status(200).json({
             success: true,
             message: 'Order created successfully!',
@@ -151,11 +151,11 @@ const addProductToOrder = (req, res) => __awaiter(void 0, void 0, void 0, functi
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });
@@ -173,11 +173,11 @@ const getOrdersFromUser = (req, res) => __awaiter(void 0, void 0, void 0, functi
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });
@@ -195,11 +195,11 @@ const getTotalPriceOfOrdersFromUser = (req, res) => __awaiter(void 0, void 0, vo
         console.log(error);
         res.status(404).json({
             success: false,
-            message: "User not found",
+            message: 'User not found',
             error: {
                 code: 404,
-                description: "User not found!"
-            }
+                description: 'User not found!',
+            },
         });
     }
 });

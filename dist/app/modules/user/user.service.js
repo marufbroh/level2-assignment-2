@@ -16,7 +16,7 @@ exports.userServices = void 0;
 const user_model_1 = __importDefault(require("./user.model"));
 const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userData.userId)) {
-        throw new Error("User already exists");
+        throw new Error('User already exists');
     }
     const result = yield user_model_1.default.create(userData);
     return result;
@@ -30,7 +30,7 @@ const getSingleUser = (userId) => __awaiter(void 0, void 0, void 0, function* ()
         const result = yield user_model_1.default.findOne({ userId }, { password: 0, _id: 0, __v: 0 });
         return result;
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 const updateUser = (userId, userData) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
@@ -41,14 +41,14 @@ const updateUser = (userId, userData) => __awaiter(void 0, void 0, void 0, funct
         });
         return result;
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
         const result = yield user_model_1.default.findOneAndDelete({ userId });
         return result;
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 const addProductToOrder = (userId, orderData) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
@@ -62,7 +62,7 @@ const addProductToOrder = (userId, orderData) => __awaiter(void 0, void 0, void 
             return updatedUser;
         }
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 const getOrdersFromUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
@@ -71,17 +71,17 @@ const getOrdersFromUser = (userId) => __awaiter(void 0, void 0, void 0, function
             return { orders: user.orders };
         }
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 const getTotalPriceOfOrdersFromUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     if (yield user_model_1.default.isUserExists(userId)) {
         const user = yield user_model_1.default.findOne({ userId });
         if (user === null || user === void 0 ? void 0 : user.orders) {
-            const totalPrice = user.orders.reduce((sum, order) => sum + (order.price * order.quantity), 0);
+            const totalPrice = user.orders.reduce((sum, order) => sum + order.price * order.quantity, 0);
             return { totalPrice: totalPrice };
         }
     }
-    throw new Error("User not exists");
+    throw new Error('User not exists');
 });
 exports.userServices = {
     createUser,

@@ -35,12 +35,12 @@ const userSchema = new mongoose_1.Schema({
     userId: {
         type: Number,
         required: [true, 'User ID is required'],
-        unique: true
+        unique: true,
     },
     username: {
         type: String,
         required: [true, 'Username is required'],
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
@@ -63,7 +63,7 @@ const userSchema = new mongoose_1.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true
+        unique: true,
     },
     isActive: {
         type: Boolean,
@@ -89,7 +89,7 @@ const userSchema = new mongoose_1.Schema({
     },
     orders: [orderSchema],
 });
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         this.password = yield bcrypt_1.default.hash(this.password, Number(config_1.default.bcrypt_salt_rounds));
         next();
